@@ -2,11 +2,19 @@ html {
     font-size: 16px;
 }
 
-#calc-output {
-
+#output-flex {
     width: 100vw;
     height: 3rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    border: solid 1px red;
     background-color: black;
+}
+#calc-output {
+
+    color: white;
 }
 
 #button-grid {
