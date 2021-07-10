@@ -7,36 +7,57 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/calc.css">
 
-    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap" rel="stylesheet">
     
 </head>
 
 <body>
-    
-    <div id ="output-flex"><div id="calc-output"></div></div>
-    <div id='button-grid'>
-        <button class = "op-btn btn" id="btn-c">C</button>
-        <button class = "op-btn btn" id="btn-div">%</button>
-        <button class = "op-btn btn" id="btn-mul">x</button>
-        <button class = "op-btn btn" id="btn-plus">+</button>
-        <button class = "op-btn btn" id="btn-minus">-</button>
-        <button class = "num-btn btn" id="btn-9">9</button>
-        <button class = "num-btn btn" id="btn-8">8</button>
-        <button class = "num-btn btn" id="btn-7">7</button>
-        <button class = "num-btn btn" id="btn-6">6</button>
-        <button class = "num-btn btn" id="btn-5">5</button>
-        <button class = "num-btn btn" id="btn-4">4</button>
-        <button class = "num-btn btn" id="btn-3">3</button>
-        <button class = "num-btn btn" id="btn-2">2</button>
-        <button class = "num-btn btn" id="btn-1">1</button>
-    </div>
 
-    <div id = "flex-btns">
-        <button class = "num-btn btn" id="btn-0">0</button>
-        <button class = "num-btn btn" id="btn-dot">.</button>
-        <button class = "eq-btn btn" id="btn-equals">=</button>
+    <div id="calc-flex">
+        <div id="vertical">
+            <div id="title"><h1>CALCULATOR</h1></div>
+            <div id="calc-container">
+            
+                <div id="test"><div id ="buffer-flex"><div id="calc-buffer"></div></div></div>
+                <div id ="output-flex"><div id="calc-output"></div></div>
+
+                <div class = "calc-row" id="row0">
+                    <button class = "op-btn btn" id="btn-c">C</button>
+                    <button class = "op-btn btn" id="btn-mul">&#215</button>
+                </div>
+
+                <div class = "calc-row" id="row1">
+                    <button class = "num-btn btn" id="btn-9">9</button>
+                    <button class = "num-btn btn" id="btn-8">8</button>
+                    <button class = "num-btn btn" id="btn-7">7</button>
+                    <button class = "op-btn btn" id="btn-div">&#247</button>
+                </div>
+
+                <div class = "calc-row" id="row2">
+                    <button class = "num-btn btn" id="btn-6">6</button>
+                    <button class = "num-btn btn" id="btn-5">5</button>
+                    <button class = "num-btn btn" id="btn-4">4</button>
+                    <button class = "op-btn btn" id="btn-plus">&#43</button>
+                </div>
+
+                <div class = "calc-row" id="row3">
+                    <button class = "num-btn btn" id="btn-3">3</button>
+                    <button class = "num-btn btn" id="btn-2">2</button>
+                    <button class = "num-btn btn" id="btn-1">1</button>
+                    <button class = "op-btn btn" id="btn-minus">-</button>
+                </div>
+
+                <div id = "flex-btns">
+                    <button class = "num-btn btn zero-btn" id="btn-0">0</button>
+                    <button class = "num-btn btn" id="btn-dot">.</button>
+                    <button class = "eq-btn btn" id="btn-equals">=</button>
+                </div>
+
+            </div>
+            <div id="sig-flex"><div id="signature">The Odin Project: Foundations<br>Project: Calculator<br>By Craig McLean</div></div>
+        </div>
     </div>
 
 

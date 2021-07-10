@@ -2,6 +2,7 @@ const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth
 const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
 
 let calcOutput = document.querySelector("#calc-output");
+let bufferOutput = document.querySelector("#calc-buffer");
 
 function AddEventsToBtns()
 {
@@ -12,18 +13,17 @@ function AddEventsToBtns()
     {
         btns[i].addEventListener('click', ButtonClicked )
     }
-
 }
 
-function sizeCalculator() {
+/* function sizeCalculator() {
 
     let btnGrid = document.getElementById("button-grid");
 
     btnGrid.style.height = "50vh";
     btnGrid.style.width = "80vw";
-}
+} */
 
-sizeCalculator();
+//sizeCalculator();
 AddEventsToBtns();
 
 
@@ -33,10 +33,12 @@ let input1 = "";
 let input2 = "";
 let inputResult = "";
 let calcOperator = null;
+let eqPressed = false;
 
 function ClearCalculator()
 {
     calcOutput.textContent = "";
+    //bufferOutput.textContent = "";
 }
 
 function Display(toDisp)
@@ -51,6 +53,7 @@ function ResetCalculator()
     input2 = "";
     calcOperator = null;
     workingOnCalculation = false;
+    eqPressed = false;
 
     ClearCalculator();
 }
@@ -60,6 +63,14 @@ function ResetCalculator()
 function NumberPressed(pressedNum)
 {
     //console.log("Pressed Number: " + pressedNum);
+
+    if(calcOperator == null && (input1 != "" || input2 != ""))
+    {
+        if(eqPressed)
+        {
+            ResetCalculator();
+        }
+    }
 
     if(workingOnInput1)
     {
@@ -90,6 +101,7 @@ function OperatorPressed(pressedOp)
         calcOperator = pressedOp;
         if(workingOnCalculation)
         {
+            //bufferOutput.textContent = calcOutput.textContent;
             EqualPressed(false);
             return;
         }
@@ -100,27 +112,49 @@ function OperatorPressed(pressedOp)
     }
     else{
         //if there already is an operator pressed, then just switch it to the latest one
+        let tempOperator = calcOperator;
         calcOperator = pressedOp;
         if(workingOnCalculation)
         {
-            EqualPressed(false);
+            //bufferOutput.textContent = calcOutput.textContent;
+            EqualPressed(false, tempOperator);
             return;
         }
     }
 
+    //bufferOutput.textContent = calcOutput.textContent;
     ClearCalculator();
 }
 
-function EqualPressed(equalOrOperator)
+function EqualPressed(equalOrOperator, tempOperator)
 {
     if(input1 != "" && input2 != "" && calcOperator != null)
     {
         let n1 = Number(input1);
         let n2 = Number(input2);
 
-        console.log(`${n1} ${calcOperator} ${n2}`);
+        if(workingOnInput1)
+        {
+            let n3 = n2;
+            n2 = n1;
+            n1 = n3;
+        }
 
-        switch (calcOperator)
+
+        let operator = null;
+        if(tempOperator != undefined)
+        {
+            operator = tempOperator;
+        }
+        else{
+            operator = calcOperator;
+        }
+
+        console.log(`${workingOnInput1} ${n1} ${operator} ${n2}`);
+
+
+
+        switch (operator)
         {
             case "div":
                 {
@@ -160,6 +194,11 @@ function EqualPressed(equalOrOperator)
         if(equalOrOperator)
         {
             calcOperator = null;
+            eqPressed = true;
+        }
+        else
+        {
+            eqPressed = false;
         }
         
     }
