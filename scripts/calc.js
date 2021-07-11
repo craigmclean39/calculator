@@ -241,7 +241,7 @@ function EqualPressed(equalOrOperator, tempOperator)
         }
 
         bufferOutput.textContent = `${n1} ${opSymbol} ${n2}`;
-        console.log(`${n1} ${operator} ${n2}`);
+        //console.log(`${n1} ${operator} ${n2}`);
 
         if(error)
         {
