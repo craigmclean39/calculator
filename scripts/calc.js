@@ -9,7 +9,7 @@ function AddEventsToBtns()
     let btns = document.querySelectorAll(".btn");
     //console.log(btns);
 
-    for(i = 0; i < btns.length; i++)
+    for(let i = 0; i < btns.length; i++)
     {
         btns[i].addEventListener('click', ButtonClicked )
     }
@@ -38,12 +38,30 @@ let eqPressed = false;
 function ClearCalculator()
 {
     calcOutput.textContent = "";
-    //bufferOutput.textContent = "";
+    bufferOutput.textContent = "";
 }
 
 function Display(toDisp)
 {
+
+    //it output is greater than 15 digits display an error
+    if(toDisp.length > 15)
+    {
+        ResetCalculator();
+        calcOutput.textContent = "OVERFL0W ERROR"
+        return false;
+    }
+
+    if(toDisp == "Infinity")
+    {
+        ResetCalculator();
+        calcOutput.textContent = "=("
+        return false;
+    }
+
+
     calcOutput.textContent = toDisp;
+    return true;
 }
 
 function ResetCalculator()
@@ -72,13 +90,42 @@ function NumberPressed(pressedNum)
         }
     }
 
+    if(pressedNum == ".")
+    {
+
+        //only one decimal point allowed in a number 
+        if(workingOnInput1)
+        {
+            for(let i = 0; i < input1.length; i++)
+            {
+                if(input1.charAt(i) == ".") { return; }
+            }
+        }
+        else
+        {
+            for(let i = 0; i < input2.length; i++)
+            {
+                if(input2.charAt(i) == ".") { return; }
+            }
+        }
+    }
+
     if(workingOnInput1)
     {
+        //max input for our calculator of 10
+        if(input1.length == 10)
+        {
+            return;
+        }
         input1 += pressedNum;
         calcOutput.textContent = input1;
     }
     else
     {
+        if(input2.length == 10)
+        {
+            return;
+        }
         input2 += pressedNum;
         calcOutput.textContent = input2;
     }
@@ -92,6 +139,11 @@ function OperatorPressed(pressedOp)
     if(input1 != "" && input2 != "")
     {
         workingOnCalculation = true;
+    }
+
+    if(input1 == "" && input2 =="")
+    {
+        return;
     }
 
     //if there is no current operator
@@ -150,40 +202,50 @@ function EqualPressed(equalOrOperator, tempOperator)
             operator = calcOperator;
         }
 
-        console.log(`${workingOnInput1} ${n1} ${operator} ${n2}`);
-
-
-
+        let opSymbol = "";
+        let error = false;
         switch (operator)
         {
             case "div":
                 {
-                    inputResult = (n1 / n2).toString();
-                    Display(inputResult);
+                    opSymbol = '\u00F7';
+                    inputResult = parseFloat((n1 / n2).toFixed(9)).toString();
+                    error = !Display(inputResult);
                     break;
 
                 }
             case "mul":
                 {
-                    inputResult = (n1 * n2).toString();
-                    Display(inputResult);
+                    opSymbol = '\u00D7';
+                    inputResult = parseFloat((n1 * n2).toFixed(9)).toString();
+                    error = !Display(inputResult);
                     break;
 
                 }
             case "plus":
                 {
-                    inputResult = (n1 + n2).toString();
-                    Display(inputResult);
+                    opSymbol = '\u002B';
+                    inputResult = parseFloat((n1 + n2).toFixed(9)).toString();
+                    error = !Display(inputResult);
                     break;
 
                 }
             case "minus":
                 {
-                    inputResult = (n1 - n2).toString();
-                    Display(inputResult);
+                    opSymbol = '\u2212';
+                    inputResult = parseFloat((n1 - n2).toFixed(9)).toString();
+                    error = !Display(inputResult);
                     break;
 
                 }
+        }
+
+        bufferOutput.textContent = `${n1} ${opSymbol} ${n2}`;
+        console.log(`${n1} ${operator} ${n2}`);
+
+        if(error)
+        {
+            return;
         }
 
         workingOnCalculation = true;
@@ -289,6 +351,11 @@ function ButtonClicked(e)
         case "btn-equals":
             {
                 EqualPressed(true);
+                break;
+            }
+        case "btn-dot":
+            {
+                NumberPressed(".");
                 break;
             }
 

@@ -102,7 +102,7 @@ body {
 
     font-size: 2rem;
     padding-right: 1rem;
-    color: white;
+    color: var(--number-color);
 }
 
 #buffer-flex {
@@ -116,8 +116,8 @@ body {
     border: solid .5rem black;
 }
 #calc-buffer {
-    font-size: 2rem;
-    color: white;
+    font-size: 1.8rem;
+    color: var(--number-shadow);
 }
 
 .calc-row {
